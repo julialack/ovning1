@@ -75,6 +75,11 @@
             // Vid giltig formulär som skickats: 
             if (isValid) {
                 alert('ditt formulär har skickats!');
+
+                // Rensa formulärfältet
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
                 
             }
         });
