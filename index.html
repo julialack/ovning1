@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulär</title>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Kontakta Oss!</h2>
+    <form id="contactForm">
+        <div class="input-group">
+            <label for="name">Namn:</label><br>
+            <input type="text" id="name" name="name"><br>
+            <span id="nameError" class="error-message"></span>
+        </div>
+        <div class="input-group">
+            <label for="email">E-postadress:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <span id="emailError" class="error-message"></span>
+        </div>
+        <div class="input-group">
+            <label for="message">Meddelande:</label><br>
+            <textarea id="message" name="message"></textarea><br>
+            <span id="messageError" class="error-message"></span>
+        </div>
+        <button type="submit">Skicka</button>
+    </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            // Förhindra formuläret från att skickas direkt
+            event.preventDefault();
+            
+            // Hämta fältvärdena
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Töm alla tidigare felmeddelanden
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('messageError').textContent = '';
+
+            // Valideringslogik
+            let isValid = true;
+            
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Namn är obligatoriskt.';
+                isValid = false;
+            }
+            
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'E-postadress är obligatorisk.';
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                document.getElementById('emailError').textContent = 'Ange en giltig e-postadress.';
+                isValid = false;
+            }
+            
+            if (message === '') {
+                document.getElementById('messageError').textContent = 'Meddelande är obligatoriskt.';
+                isValid = false;
+            }
+            
+            // Om formuläret är giltigt, skicka det
+            if (isValid) {
+                alert('ditt formulär har skickats!');
+                // Här kan du skicka formuläret med t.ex. AJAX eller ett vanligt formulärsändning
+                // event.target.submit(); // Använd detta om du vill skicka det på vanligt sätt
+            }
+        });
+
+        // Funktion för att validera e-postadresser
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
