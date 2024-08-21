@@ -38,20 +38,20 @@
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
-            // Förhindra formuläret från att skickas direkt
+            // så att formulären inte skickas direkt
             event.preventDefault();
             
-            // Hämta fältvärdena
+            // Hämta värderna
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
             
-            // Töm alla tidigare felmeddelanden
+            // Töm alla tidigare felmeddelanden (funkar ej?)
             document.getElementById('nameError').textContent = '';
             document.getElementById('emailError').textContent = '';
             document.getElementById('messageError').textContent = '';
 
-            // Valideringslogik
+            // validering
             let isValid = true;
             
             if (name === '') {
@@ -72,15 +72,14 @@
                 isValid = false;
             }
             
-            // Om formuläret är giltigt, skicka det
+            // Vid giltig formulär som skickats: 
             if (isValid) {
                 alert('ditt formulär har skickats!');
-                // Här kan du skicka formuläret med t.ex. AJAX eller ett vanligt formulärsändning
-                // event.target.submit(); // Använd detta om du vill skicka det på vanligt sätt
+                
             }
         });
 
-        // Funktion för att validera e-postadresser
+        // för att se till att det är email adress. 
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
